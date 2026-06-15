@@ -1,314 +1,112 @@
-# Database Module (db.py)
+Description
+The db.py module serves as the database management component of the Crime Rate Prediction System. It is responsible for establishing database connections, creating required tables, storing user information, managing prediction records, and retrieving data when needed. This module acts as a bridge between the application interface and the database, ensuring secure and efficient data storage and retrieval.
 
-## Description
+Features
+Database Connection
+Establishes connection with MySQL database.
 
-The `db.py` module serves as the database management component of the Crime Rate Prediction System. It is responsible for establishing database connections, creating required tables, storing user information, managing prediction records, and retrieving data when needed.
+Handles database communication.
 
-This module acts as a bridge between the application interface and the database, ensuring secure and efficient data storage and retrieval.
+Maintains data integrity.
 
----
+User Management
+Stores user registration details.
 
-# Features
+Supports user authentication.
 
-## Database Connection
+Manages user login records.
 
-- Establishes connection with MySQL database.
-- Handles database communication.
-- Maintains data integrity.
+Prediction Storage
+Saves crime prediction results.
 
-## User Management
+Maintains prediction history.
 
-- Stores user registration details.
-- Supports user authentication.
-- Manages user login records.
+Stores state-wise forecast records.
 
-## Prediction Storage
+Data Retrieval
+Retrieves stored prediction records.
 
-- Saves crime prediction results.
-- Maintains prediction history.
-- Stores state-wise forecast records.
+Fetches user information.
 
-## Data Retrieval
+Supports report generation.
 
-- Retrieves stored prediction records.
-- Fetches user information.
-- Supports report generation.
+Table Initialization
+Automatically creates required database tables.
 
-## Table Initialization
+Ensures database structure consistency.
 
-- Automatically creates required database tables.
-- Ensures database structure consistency.
+Common Errors
+Error 1: Database Connection Failed
+The error message is Can't connect to MySQL server. This happens because the MySQL server is not running or database credentials are incorrect. To solve this, start the MySQL service, verify the username and password, and check the database host and port settings.
 
----
+Error 2: Access Denied
+The error message is Access denied for user. This occurs due to an incorrect database username or password. To solve this, update the credentials in db.py with valid database login details.
 
-# Common Errors
+Error 3: Database Not Found
+The error message is Unknown database. This happens because the specified database does not exist. To solve this, create the required database manually using the SQL command CREATE DATABASE crime_prediction;.
 
-## Error 1: Database Connection Failed
+Error 4: Table Not Found
+The error message is Table doesn't exist. This occurs because the required tables were not created. To solve this, run the init_db() function to create tables automatically.
 
-### Error Message
+Error 5: Insert Query Failed
+The error message is Error while inserting data. This is caused by an invalid data format or database constraints. To solve this, verify input values, check the table schema, and validate the SQL query.
 
-```text
-Can't connect to MySQL server
-```
+Debugging Guide
+To debug your system, you can use print statements to verify different operations:
 
-### Reason
+Use print(Database Connected Successfully) to check the connection.
 
-The MySQL server is not running or database credentials are incorrect.
+Use print(Tables Created Successfully) to check table creation.
 
-### Solution
+Use print(User Registered Successfully) for user registration.
 
-- Start MySQL service.
-- Verify username and password.
-- Check database host and port settings.
+Use print(Login Successful) for user login.
 
----
+Use print(Prediction Saved Successfully) to check if predictions are saved.
 
-## Error 2: Access Denied
+Use print(Records Retrieved Successfully) to check if data retrieval works.
 
-### Error Message
+Database Workflow
+The application starts by connecting to the database. Next, it initializes the tables. Then, it proceeds to store user data and prediction results. Finally, it retrieves records to display the data.
 
-```text
-Access denied for user
-```
+Database Tables
+Users Table
+Stores registered user information. Fields include id, username, email, and password.
 
-### Reason
+Predictions Table
+Stores generated prediction records. Fields include prediction_id, user_id, state, year, predicted_crime, and prediction_date.
 
-Incorrect database username or password.
+Advantages
+Centralized data storage.
 
-### Solution
+Secure user management.
 
-Update credentials in:
+Efficient data retrieval.
 
-```python
-db.py
-```
+Prediction history maintenance.
 
-with valid database login details.
+Supports future scalability.
 
----
+Limitations
+Requires MySQL installation.
 
-## Error 3: Database Not Found
+Dependent on database availability.
 
-### Error Message
+Requires proper credential management.
 
-```text
-Unknown database
-```
+Future Enhancements
+Cloud database integration.
 
-### Reason
+Automated backup system.
 
-The specified database does not exist.
+Data encryption.
 
-### Solution
+Multi-user support.
 
-Create the required database manually:
+Advanced analytics storage.
 
-```sql
-CREATE DATABASE crime_prediction;
-```
+Input and Output
+Inputs include user registration data, login credentials, and prediction results. Outputs include stored user records, authentication results, prediction history, and database reports.
 
----
-
-## Error 4: Table Not Found
-
-### Error Message
-
-```text
-Table doesn't exist
-```
-
-### Reason
-
-Required tables were not created.
-
-### Solution
-
-Run:
-
-```python
-init_db()
-```
-
-to create tables automatically.
-
----
-
-## Error 5: Insert Query Failed
-
-### Error Message
-
-```text
-Error while inserting data
-```
-
-### Reason
-
-Invalid data format or database constraints.
-
-### Solution
-
-- Verify input values.
-- Check table schema.
-- Validate SQL query.
-
----
-
-# Debugging Guide
-
-## Check Database Connection
-
-```python
-print("Database Connected Successfully")
-```
-
----
-
-## Check Table Creation
-
-```python
-print("Tables Created Successfully")
-```
-
----
-
-## Check User Registration
-
-```python
-print("User Registered Successfully")
-```
-
----
-
-## Check User Login
-
-```python
-print("Login Successful")
-```
-
----
-
-## Check Prediction Save
-
-```python
-print("Prediction Saved Successfully")
-```
-
----
-
-## Check Data Retrieval
-
-```python
-print("Records Retrieved Successfully")
-```
-
----
-
-# Database Workflow
-
-```text
-Application Starts
-         |
-         v
-Connect to Database
-         |
-         v
-Initialize Tables
-         |
-         v
-Store User Data
-         |
-         v
-Store Prediction Results
-         |
-         v
-Retrieve Records
-         |
-         v
-Display Data
-```
-
----
-
-# Database Tables
-
-## Users Table
-
-Stores registered user information.
-
-### Fields
-
-- id
-- username
-- email
-- password
-
----
-
-## Predictions Table
-
-Stores generated prediction records.
-
-### Fields
-
-- prediction_id
-- user_id
-- state
-- year
-- predicted_crime
-- prediction_date
-
----
-
-# Advantages
-
-- Centralized data storage.
-- Secure user management.
-- Efficient data retrieval.
-- Prediction history maintenance.
-- Supports future scalability.
-
----
-
-# Limitations
-
-- Requires MySQL installation.
-- Dependent on database availability.
-- Requires proper credential management.
-
----
-
-# Future Enhancements
-
-- Cloud database integration.
-- Automated backup system.
-- Data encryption.
-- Multi-user support.
-- Advanced analytics storage.
-
----
-
-# Input
-
-- User Registration Data
-- Login Credentials
-- Prediction Results
-
----
-
-# Output
-
-- Stored User Records
-- Authentication Results
-- Prediction History
-- Database Reports
-
----
-
-# File Location
-
-```text
-Data migration/
-└── db.py
-```
-
-The `db.py` module is the backbone of the Crime Rate Prediction System's data management layer, responsible for database connectivity, user authentication, prediction storage, and data retrieval operations.
+File Location
+The file is located in the Data migration folder as db.py. This module is the backbone of the system's data management layer, responsible for database connectivity, user authentication, prediction storage, and data retrieval operations.
