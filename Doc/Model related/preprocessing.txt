@@ -1,0 +1,279 @@
+# Error Handling in Data Preprocessing
+
+Data preprocessing is a critical phase of the Crime Rate Prediction System. Improper data can cause model training failures, inaccurate predictions, and system crashes. Therefore, proper error handling mechanisms are implemented to ensure data quality and system reliability.
+
+---
+
+# Common Errors and Solutions
+
+## 1. Dataset File Not Found
+
+### Error
+
+```python
+FileNotFoundError
+```
+
+### Cause
+
+The dataset path is incorrect or the file is missing.
+
+### Solution
+
+```python
+try:
+    df = pd.read_csv(DATA_PATH)
+except FileNotFoundError:
+    print("Dataset file not found.")
+```
+
+### Debugging
+
+```python
+print(DATA_PATH)
+```
+
+Verify the dataset location.
+
+---
+
+## 2. Missing Values Error
+
+### Error
+
+```python
+ValueError
+```
+
+### Cause
+
+The dataset contains NULL or missing values.
+
+### Solution
+
+```python
+df = df.dropna()
+```
+
+or
+
+```python
+df.fillna(df.mean(), inplace=True)
+```
+
+### Debugging
+
+```python
+print(df.isnull().sum())
+```
+
+---
+
+## 3. Duplicate Records
+
+### Cause
+
+Repeated crime records exist in the dataset.
+
+### Solution
+
+```python
+df.drop_duplicates(inplace=True)
+```
+
+### Debugging
+
+```python
+print("Duplicate Records:", df.duplicated().sum())
+```
+
+---
+
+## 4. Missing Column Error
+
+### Error
+
+```python
+KeyError
+```
+
+### Cause
+
+Required columns are not present.
+
+### Solution
+
+Verify columns:
+
+```python
+print(df.columns)
+```
+
+Expected:
+
+```text
+STATE/UT
+YEAR
+TOTAL IPC CRIMES
+```
+
+---
+
+## 5. Invalid Data Type
+
+### Error
+
+```python
+TypeError
+```
+
+### Cause
+
+Numerical values are stored as strings.
+
+### Solution
+
+```python
+df["YEAR"] = df["YEAR"].astype(int)
+```
+
+### Debugging
+
+```python
+print(df.dtypes)
+```
+
+---
+
+## 6. Normalization Error
+
+### Error
+
+```python
+ValueError
+```
+
+### Cause
+
+Dataset contains non-numeric values.
+
+### Solution
+
+Convert columns to numeric format.
+
+```python
+df["TOTAL IPC CRIMES"] = pd.to_numeric(
+    df["TOTAL IPC CRIMES"],
+    errors="coerce"
+)
+```
+
+### Debugging
+
+```python
+print(df["TOTAL IPC CRIMES"].dtype)
+```
+
+---
+
+## 7. Empty Dataset Error
+
+### Error
+
+```python
+ValueError: Found array with 0 sample(s)
+```
+
+### Cause
+
+All records were removed during preprocessing.
+
+### Solution
+
+Check preprocessing conditions before training.
+
+### Debugging
+
+```python
+print(df.shape)
+```
+
+Expected:
+
+```text
+(rows, columns)
+```
+
+---
+
+## 8. Data Leakage
+
+### Cause
+
+Testing data is accidentally used during training.
+
+### Solution
+
+Perform Train-Test Split before scaling and model training.
+
+```python
+from sklearn.model_selection import train_test_split
+```
+
+### Debugging
+
+Verify:
+
+```python
+print(X_train.shape)
+print(X_test.shape)
+```
+
+---
+
+# Debugging Logs
+
+Use debugging messages during preprocessing.
+
+```python
+print("Dataset Loaded Successfully")
+print("Missing Values Removed")
+print("Duplicate Records Removed")
+print("Normalization Completed")
+print("Train-Test Split Completed")
+print("Preprocessing Completed Successfully")
+```
+
+---
+
+# Exception Handling Example
+
+```python
+try:
+    df = pd.read_csv(DATA_PATH)
+
+    df.dropna(inplace=True)
+    df.drop_duplicates(inplace=True)
+
+    print("Preprocessing Completed")
+
+except FileNotFoundError:
+    print("Dataset file not found")
+
+except KeyError as e:
+    print("Missing Column:", e)
+
+except Exception as e:
+    print("Unexpected Error:", e)
+```
+
+---
+
+# Benefits of Error Handling
+
+- Prevents application crashes.
+- Improves data quality.
+- Ensures reliable model training.
+- Detects dataset issues early.
+- Improves prediction accuracy.
+- Simplifies debugging and maintenance.
