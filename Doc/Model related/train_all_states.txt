@@ -1,309 +1,97 @@
-# State-Wise LSTM Model Training
+State-Wise LSTM Model Training
+Overview
+The Crime Rate Prediction System uses Long Short-Term Memory (LSTM) neural networks to train individual forecasting models for each state and union territory in India. By training separate models rather than a single global model, the system achieves higher accuracy and captures unique crime patterns specific to each region.
 
-## Overview
+Common Errors and Debugging
+1. Dataset File Not Found
+Error: FileNotFoundError: crime_data_india.csv
 
-The Crime Rate Prediction System uses Long Short-Term Memory (LSTM) neural networks to train separate forecasting models for each state and union territory of India.
+Cause: The dataset path is incorrect or the file is missing.
 
-Instead of training a single model for the entire dataset, the system trains individual models for every state to improve prediction accuracy and capture state-specific crime patterns.
+Debugging: Print the DATA_PATH variable. Ensure the file resides in the data/ directory.
 
----
+2. State Data Not Found
+Error: KeyError: STATE/UT
 
-# Common Errors and Debugging
+Cause: The column name is missing or misspelled in the CSV.
 
-## Error 1: Dataset File Not Found
+Debugging: Run print(df.columns) to verify that STATE/UT, YEAR, and TOTAL IPC CRIMES are present.
 
-### Error Message
+3. Empty State Dataset
+Error: ValueError: Found array with 0 sample(s)
 
-```python
-FileNotFoundError: crime_data_india.csv
-```
+Cause: The filtering process resulted in no records for the selected state.
 
-### Cause
+Debugging: Run print(state_data.shape) and print(state_name) before initiating the training function.
 
-Dataset path is incorrect or file is missing.
+4. TensorFlow Not Installed
+Error: ModuleNotFoundError: No module named 'tensorflow'
 
-### Debugging
+Solution: Install the package via pip install tensorflow. Verify by importing it and running print(tf.__version__).
 
-```python
-print(DATA_PATH)
-```
+5. LSTM Input Shape Error
+Error: ValueError: Input shape is incompatible
 
-Verify that:
+Cause: Incorrect training data dimensions.
 
-```text
-data/crime_data_india.csv
-```
+Debugging: Run print(X_train.shape). It should typically be in the format (samples, timesteps, features), e.g., (500, 10, 1).
 
-exists in the project folder.
+6. Model Training Failed
+Error: ValueError during model.fit()
 
----
+Debugging: Inspect X_train.shape, y_train.shape, X_test.shape, and y_test.shape to ensure no datasets are empty.
 
-## Error 2: State Data Not Found
+7. Model Save Failed
+Error: PermissionError
 
-### Error Message
+Cause: The system lacks write access to the directory.
 
-```python
-KeyError: STATE/UT
-```
+Debugging: Confirm the saved_models/ folder exists and has correct write permissions.
 
-### Cause
+8. Memory Error
+Error: MemoryError
 
-Column name does not exist in dataset.
+Cause: The dataset or model parameters are too large for system RAM.
 
-### Debugging
+Solution: Reduce the batch_size, epochs, or sequence_length, or train states one by one instead of in a loop.
 
-```python
-print(df.columns)
-```
+9. NaN Values Found
+Error: ValueError: Input contains NaN
 
-Verify the dataset contains:
+Debugging: Run print(df.isnull().sum()). Use df = df.dropna() to clean the data.
 
-```text
-STATE/UT
-YEAR
-TOTAL IPC CRIMES
-```
+10. Prediction Gives Wrong Values
+Cause: Errors in data scaling or inverse transformation.
 
----
+Debugging: Print predictions and actual_values to verify if the Min-Max Scaler was applied and reversed consistently.
 
-## Error 3: Empty State Dataset
+Training Logs & Verification
+Debugging Logs
+Integrate these logs into run_training.py to trace the training pipeline:
 
-### Error Message
-
-```python
-ValueError: Found array with 0 sample(s)
-```
-
-### Cause
-
-Selected state contains no records.
-
-### Debugging
-
-```python
-print(state_data.shape)
-print(state_name)
-```
-
-Verify state data exists before training.
-
----
-
-## Error 4: TensorFlow Not Installed
-
-### Error Message
-
-```python
-ModuleNotFoundError: No module named 'tensorflow'
-```
-
-### Debugging
-
-```bash
-pip install tensorflow
-```
-
-Verify installation:
-
-```python
-import tensorflow as tf
-print(tf.__version__)
-```
-
----
-
-## Error 5: LSTM Input Shape Error
-
-### Error Message
-
-```python
-ValueError: Input shape is incompatible
-```
-
-### Cause
-
-Incorrect training data dimensions.
-
-### Debugging
-
-```python
-print(X_train.shape)
-print(y_train.shape)
-```
-
-Expected:
-
-```text
-(samples, timesteps, features)
-```
-
-Example:
-
-```text
-(500, 10, 1)
-```
-
----
-
-## Error 6: Model Training Failed
-
-### Error Message
-
-```python
-ValueError during model.fit()
-```
-
-### Debugging
-
-```python
-print(X_train.shape)
-print(y_train.shape)
-print(X_test.shape)
-print(y_test.shape)
-```
-
-Verify training and testing datasets are not empty.
-
----
-
-## Error 7: Model Save Failed
-
-### Error Message
-
-```python
-PermissionError
-```
-
-### Cause
-
-No write permission.
-
-### Debugging
-
-```python
-print(model_path)
-```
-
-Verify:
-
-```text
-saved_models/
-```
-
-folder exists.
-
----
-
-## Error 8: Memory Error
-
-### Error Message
-
-```python
-MemoryError
-```
-
-### Cause
-
-Dataset too large.
-
-### Debugging
-
-Reduce:
-
-```python
-batch_size
-epochs
-sequence_length
-```
-
-Or train states individually.
-
----
-
-## Error 9: NaN Values Found
-
-### Error Message
-
-```python
-ValueError: Input contains NaN
-```
-
-### Debugging
-
-```python
-print(df.isnull().sum())
-```
-
-Remove missing values:
-
-```python
-df = df.dropna()
-```
-
----
-
-## Error 10: Prediction Gives Wrong Values
-
-### Cause
-
-Improper scaling or inverse transformation.
-
-### Debugging
-
-```python
-print(predictions)
-print(actual_values)
-```
-
-Verify Min-Max Scaler is applied correctly.
-
----
-
-# Training Debug Logs
-
-Add these logs inside run_training.py
-
-```python
+Python
 print("Dataset Loaded Successfully")
 print("State Training Started:", state)
 print("Data Preprocessing Completed")
 print("Model Training Started")
 print("Model Training Completed")
 print("Model Saved Successfully")
-```
+Final Verification
+After the training loop concludes, verify the volume of models generated:
 
----
-
-# Training Verification
-
-After training all states:
-
-```python
+Python
 print("Total States Trained:", len(models))
-```
+Expected result: 36 (or the total count of states/UTs in your dataset).
 
-Expected Output:
+Success Criteria
+Dataset Integrity: Load succeeds without errors.
 
-```text
-Total States Trained: 36
-```
+State Coverage: Every state/UT is processed.
 
-(depending on dataset)
+Stability: LSTM model training completes without crashes.
 
----
+Visualization: Accuracy and Loss graphs are successfully generated.
 
-# Success Criteria
+Persistence: State-wise models are correctly saved in the file system.
 
-The training process is considered successful when:
-
-✓ Dataset loads correctly
-
-✓ All states are processed
-
-✓ LSTM model trains without errors
-
-✓ Accuracy and Loss graphs are generated
-
-✓ State-wise models are saved
-
-✓ Evaluation metrics are calculated
+Performance: Evaluation metrics (MSE/RMSE) are calculated and logged.
