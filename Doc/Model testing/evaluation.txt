@@ -1,312 +1,82 @@
-# Evaluation Module (evaluation.db)
+Evaluation Module (evaluation.db)
+Description
+The Evaluation Module is responsible for storing, managing, and analyzing the performance results of the Crime Rate Prediction System. This module records prediction outputs, model performance metrics, accuracy scores, error values, and testing results for future reference and comparison. The evaluation database serves as a repository for model assessment and helps determine the effectiveness of the trained Machine Learning and Deep Learning models.
 
-## Description
+Features
+Prediction Result Storage
+Stores predicted crime rates and maintains historical records of state-wise prediction outputs.
 
-The Evaluation Module is responsible for storing, managing, and analyzing the performance results of the Crime Rate Prediction System. This module records prediction outputs, model performance metrics, accuracy scores, error values, and testing results for future reference and comparison.
+Performance Evaluation
+Records model accuracy, stores error metrics, and tracks model performance trends over time.
 
-The evaluation database serves as a repository for model assessment and helps determine the effectiveness of the trained Machine Learning and Deep Learning models.
+Testing Analysis
+Compares actual vs. predicted values, measures forecasting quality, and generates evaluation reports.
 
----
+Database Management
+Provides secure data storage, fast retrieval of evaluation records, and efficient performance tracking.
 
-# Features
+Workflow
+Model Prediction: The model generates output.
 
-## Prediction Result Storage
+Store Results: Prediction outputs are saved.
 
-- Stores predicted crime rates.
-- Maintains historical prediction records.
-- Saves state-wise prediction outputs.
+Calculate Metrics: Performance scores (Accuracy, MSE, RMSE) are computed.
 
-## Performance Evaluation
+Save Records: Evaluation data is persisted to the database.
 
-- Records model accuracy.
-- Stores error metrics.
-- Tracks model performance over time.
+Report Generation: Analysis reports are compiled.
 
-## Testing Analysis
+Display Results: Evaluation outcomes are presented to the user.
 
-- Compares actual and predicted values.
-- Measures forecasting quality.
-- Generates evaluation reports.
+Performance Metrics
+Mean Squared Error (MSE): Measures the average squared difference between actual and predicted values.
 
-## Database Management
+Root Mean Squared Error (RMSE): Indicates prediction accuracy; lower values denote better performance.
 
-- Secure data storage.
-- Fast retrieval of evaluation records.
-- Efficient performance tracking.
+Mean Absolute Error (MAE): Represents the average magnitude of errors in a set of predictions.
 
----
+Accuracy: The percentage of correct predictions relative to total predictions.
 
-# Workflow
+Common Errors
+1. Database File Not Found
+Error: sqlite3.OperationalError
 
-```text
-Model Prediction
-        |
-        v
-Store Prediction Results
-        |
-        v
-Calculate Performance Metrics
-        |
-        v
-Save Evaluation Records
-        |
-        v
-Generate Reports
-        |
-        v
-Display Evaluation Results
-```
+Cause: The evaluation.db file is missing.
 
----
+Solution: Verify that the file exists in the project root directory.
 
-# Stored Information
+2. Table Not Found
+Error: no such table
 
-## Prediction Records
+Cause: Evaluation tables were not initialized.
 
-- State Name
-- Year
-- Actual Crime Value
-- Predicted Crime Value
-- Prediction Date
+Solution: Run the database initialization scripts provided with the project.
 
-## Model Metrics
+3. Data Insert Failed
+Error: sqlite3.Error
 
-- Accuracy
-- Loss
-- MSE
-- RMSE
-- MAE
+Cause: Schema mismatch or invalid data format.
 
-## User Information
+Solution: Verify the table schema matches the data being inserted.
 
-- User ID
-- Prediction History
-- Evaluation Logs
+4. Data Retrieval Failed
+Cause: Incorrect SQL query syntax.
 
----
+Solution: Review your SQL statements and table names.
 
-# Mathematical Formulas
+Debugging Guide
+Connection: Print Evaluation Database Connected Successfully to verify setup.
 
-## Mean Squared Error (MSE)
+Storage: Print Evaluation Record Saved Successfully after every save operation.
 
-Measures average squared prediction error.
+Retrieval: Print Evaluation Data Retrieved Successfully to verify query health.
 
-\[
-MSE = \frac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y_i})^2
-\]
+Metrics: Use print(f"Accuracy: {accuracy}"), print(f"RMSE: {rmse}"), and print(f"MAE: {mae}") to log model health during testing.
 
-Where:
+Advantages and Future Enhancements
+Advantages: Centralized history, easy model comparison, and consistent performance monitoring.
 
-- \(y_i\) = Actual crime value
-- \(\hat{y_i}\) = Predicted crime value
-- \(n\) = Total observations
+Future Enhancements: Automated evaluation dashboards, real-time performance monitoring, and multi-model comparison tools.
 
----
-
-## Root Mean Squared Error (RMSE)
-
-Measures prediction accuracy.
-
-\[
-RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y_i})^2}
-\]
-
-Lower RMSE indicates better model performance.
-
----
-
-## Mean Absolute Error (MAE)
-
-Measures average prediction deviation.
-
-\[
-MAE = \frac{1}{n}\sum_{i=1}^{n}|y_i-\hat{y_i}|
-\]
-
----
-
-## Accuracy Formula
-
-\[
-Accuracy = \frac{Correct\ Predictions}{Total\ Predictions}\times100
-\]
-
----
-
-# Common Errors
-
-## Error 1: Database File Not Found
-
-### Error Message
-
-```python
-sqlite3.OperationalError
-```
-
-### Cause
-
-Evaluation database file is missing.
-
-### Solution
-
-Verify:
-
-```text
-evaluation.db
-```
-
-exists in the project directory.
-
----
-
-## Error 2: Table Not Found
-
-### Error Message
-
-```python
-no such table
-```
-
-### Cause
-
-Required evaluation tables were not created.
-
-### Solution
-
-Run database initialization scripts.
-
----
-
-## Error 3: Data Insert Failed
-
-### Error Message
-
-```python
-sqlite3.Error
-```
-
-### Cause
-
-Invalid data format or schema mismatch.
-
-### Solution
-
-Verify table structure and inserted values.
-
----
-
-## Error 4: Data Retrieval Failed
-
-### Cause
-
-Database query error.
-
-### Solution
-
-Check SQL query syntax and table names.
-
----
-
-# Debugging Guide
-
-## Verify Database Connection
-
-```python
-print("Evaluation Database Connected Successfully")
-```
-
----
-
-## Verify Data Storage
-
-```python
-print("Evaluation Record Saved Successfully")
-```
-
----
-
-## Verify Data Retrieval
-
-```python
-print("Evaluation Data Retrieved Successfully")
-```
-
----
-
-## Check Accuracy
-
-```python
-print("Accuracy:", accuracy)
-```
-
----
-
-## Check RMSE
-
-```python
-print("RMSE:", rmse)
-```
-
----
-
-## Check MAE
-
-```python
-print("MAE:", mae)
-```
-
----
-
-# Advantages
-
-- Stores model evaluation history.
-- Tracks prediction performance.
-- Supports model comparison.
-- Maintains testing records.
-- Enables performance monitoring.
-
----
-
-# Limitations
-
-- Depends on database availability.
-- Requires periodic maintenance.
-- Limited to stored evaluation records.
-
----
-
-# Future Enhancements
-
-- Automated evaluation dashboards.
-- Real-time performance monitoring.
-- Cloud database integration.
-- Advanced analytics reports.
-- Multi-model comparison support.
-
----
-
-# Input
-
-- Prediction Results
-- Actual Crime Values
-- Model Outputs
-
----
-
-# Output
-
-- Accuracy Reports
-- Error Metrics
-- Evaluation Logs
-- Performance Records
-
----
-
-# File Location
-
-```text
-Model Testing/
-└── evaluation.db
-```
-
-The `evaluation.db` database acts as the performance assessment repository of the Crime Rate Prediction System, storing prediction results, accuracy metrics, error values, and model evaluation records to ensure the reliability and effectiveness of crime forecasting models.
+File Location
+The database is located in the Model Testing folder as evaluation.db.
