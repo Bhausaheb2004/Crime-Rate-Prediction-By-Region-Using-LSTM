@@ -1,0 +1,373 @@
+# Prediction Module (predict.py)
+
+## Description
+
+The Prediction Module is responsible for generating future crime forecasts using the trained LSTM models. This module loads the saved model, processes user-selected state data, performs prediction, and displays future crime trends through graphical visualizations and statistical outputs.
+
+The module acts as the final stage of the Crime Rate Prediction System, where trained models are utilized to estimate future crime rates based on historical crime records.
+
+---
+
+# Objectives
+
+- Load trained LSTM models.
+- Generate future crime predictions.
+- Forecast state-wise crime rates.
+- Display prediction results.
+- Visualize future crime trends.
+- Support decision-making through predictive analytics.
+
+---
+
+# Features
+
+## State-Wise Prediction
+
+- Predict crime rates for individual states.
+- Analyze historical crime patterns.
+- Generate future forecasts.
+
+## Future Crime Forecasting
+
+- Predict crime trends for upcoming years.
+- Estimate future crime rates using LSTM.
+
+## Graphical Visualization
+
+- Historical crime trend graphs.
+- Future prediction graphs.
+- Comparative trend analysis.
+
+## Database Integration
+
+- Store prediction results.
+- Retrieve previous forecasts.
+- Maintain prediction history.
+
+---
+
+# Prediction Workflow
+
+```text
+User Selects State
+         |
+         v
+Load Historical Data
+         |
+         v
+Load Trained LSTM Model
+         |
+         v
+Generate Prediction
+         |
+         v
+Future Crime Forecast
+         |
+         v
+Display Results
+         |
+         v
+Generate Graph
+```
+
+---
+
+# Mathematical Formula
+
+## LSTM Prediction Formula
+
+\[
+Prediction = LSTM(Historical\ Crime\ Data)
+\]
+
+Where:
+
+- Historical crime data serves as input.
+- Trained LSTM model processes patterns.
+- Future crime rate is generated as output.
+
+---
+
+## Mean Squared Error (MSE)
+
+\[
+MSE = \frac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y_i})^2
+\]
+
+Used to measure prediction error.
+
+---
+
+## Root Mean Squared Error (RMSE)
+
+\[
+RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y_i})^2}
+\]
+
+Lower RMSE indicates higher prediction accuracy.
+
+---
+
+# Inputs
+
+The prediction module requires:
+
+### User Input
+
+- State Name
+- Year (optional)
+
+### Dataset Input
+
+- Historical Crime Records
+- State Crime Data
+
+### Model Input
+
+- Saved LSTM Model
+
+---
+
+# Outputs
+
+The prediction module generates:
+
+- Future Crime Rate
+- Prediction Graph
+- Historical Trend Analysis
+- Forecast Report
+
+---
+
+# Common Errors
+
+## Error 1: Model File Not Found
+
+### Error Message
+
+```python
+FileNotFoundError
+```
+
+### Cause
+
+Trained model file is missing.
+
+### Solution
+
+Verify model location:
+
+```text
+saved_models/
+```
+
+---
+
+## Error 2: State Model Not Found
+
+### Error Message
+
+```python
+FileNotFoundError
+```
+
+### Cause
+
+Selected state's model has not been trained.
+
+### Solution
+
+Train the state model before prediction.
+
+---
+
+## Error 3: Dataset Not Found
+
+### Error Message
+
+```python
+FileNotFoundError
+```
+
+### Cause
+
+Crime dataset path is incorrect.
+
+### Solution
+
+Verify:
+
+```text
+data/crime_data_india.csv
+```
+
+exists.
+
+---
+
+## Error 4: Invalid State Selection
+
+### Error Message
+
+```python
+ValueError
+```
+
+### Cause
+
+Selected state does not exist in dataset.
+
+### Solution
+
+Verify available states:
+
+```python
+print(df["STATE/UT"].unique())
+```
+
+---
+
+## Error 5: Empty Prediction Data
+
+### Error Message
+
+```python
+ValueError
+```
+
+### Cause
+
+No historical records available.
+
+### Solution
+
+Verify dataset contains sufficient state data.
+
+---
+
+## Error 6: Model Loading Error
+
+### Error Message
+
+```python
+OSError
+```
+
+### Cause
+
+Corrupted model file.
+
+### Solution
+
+Retrain and save the model again.
+
+---
+
+# Error Handling
+
+The prediction module uses exception handling to prevent application crashes.
+
+```python
+try:
+    prediction = model.predict(data)
+
+except FileNotFoundError:
+    print("Model file not found")
+
+except ValueError:
+    print("Invalid prediction input")
+
+except Exception as e:
+    print("Prediction Error:", e)
+```
+
+---
+
+# Debugging Guide
+
+## Check Model Loading
+
+```python
+print("Model Loaded Successfully")
+```
+
+---
+
+## Check Selected State
+
+```python
+print("Selected State:", state)
+```
+
+---
+
+## Check Prediction Input
+
+```python
+print(input_data.shape)
+```
+
+---
+
+## Check Prediction Output
+
+```python
+print(predictions)
+```
+
+---
+
+## Check Future Forecast
+
+```python
+print("Future Crime Prediction Generated")
+```
+
+---
+
+## Check Graph Generation
+
+```python
+print("Prediction Graph Generated")
+```
+
+---
+
+# Advantages
+
+- Fast prediction generation.
+- Accurate crime forecasting.
+- State-wise analysis.
+- Interactive visualization.
+- Supports future planning.
+
+---
+
+# Limitations
+
+- Depends on training quality.
+- Requires historical crime records.
+- Accuracy varies by state.
+- Needs periodic model updates.
+
+---
+
+# Future Enhancements
+
+- Real-time prediction system.
+- District-level forecasting.
+- Crime hotspot detection.
+- GIS integration.
+- Cloud-based prediction services.
+- Mobile application support.
+
+---
+
+# File Location
+
+```text
+Model Train/
+└── predict.py
+```
+
+The `predict.py` module is responsible for generating future crime forecasts using trained LSTM models and serves as the final prediction engine of the Crime Rate Prediction System.
