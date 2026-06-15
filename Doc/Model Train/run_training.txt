@@ -1,335 +1,101 @@
-# Model Training Execution Module (run_training.py)
+Model Training Execution Module (run_training.py)
+Description
+The run_training.py file is responsible for executing the complete model training process of the Crime Rate Prediction System. This module loads the historical crime dataset, preprocesses the data, trains the LSTM model, evaluates its performance, and saves the trained model for future crime prediction. It acts as the main training engine of the project and is executed whenever the model needs to be retrained with updated crime records.
 
-## Description
+Features
+Dataset Loading
+Loads crime datasets from CSV files.
 
-The `run_training.py` file is responsible for executing the complete model training process of the Crime Rate Prediction System. This module loads the historical crime dataset, preprocesses the data, trains the LSTM model, evaluates its performance, and saves the trained model for future crime prediction.
+Validates dataset structure and reads historical records.
 
-It acts as the main training engine of the project and is typically executed whenever the model needs to be retrained with updated crime records.
-
----
-
-# Features
-
-## Dataset Loading
-
-- Loads crime dataset from CSV files.
-- Validates dataset structure.
-- Reads historical crime records.
-
-## Data Preprocessing
-
-- Handles missing values.
-- Removes duplicate records.
-- Performs normalization.
-- Converts data into time-series format.
-
-## Model Training
-
-- Trains LSTM Neural Network.
-- Learns historical crime patterns.
-- Generates forecasting model.
-
-## Model Evaluation
-
-- Calculates training accuracy.
-- Generates loss metrics.
-- Measures prediction performance.
-
-## Model Saving
-
-- Saves trained model files.
-- Stores model weights.
-- Enables future prediction without retraining.
-
----
-
-# Workflow
-
-```text
-Start Training
-      |
-      v
-Load Crime Dataset
-      |
-      v
-Data Cleaning
-      |
-      v
 Data Preprocessing
-      |
-      v
-Train-Test Split
-      |
-      v
-LSTM Model Training
-      |
-      v
+Handles missing values and removes duplicate records.
+
+Performs normalization and converts data into a time-series format.
+
+Model Training
+Trains the LSTM Neural Network.
+
+Learns historical crime patterns to generate the forecasting model.
+
 Model Evaluation
-      |
-      v
-Generate Accuracy & Loss Graphs
-      |
-      v
-Save Trained Model
-      |
-      v
-Training Completed
-```
+Calculates training accuracy and generates loss metrics.
 
----
+Measures overall prediction performance.
 
-# Input
+Model Saving
+Saves trained model files and weights, enabling future prediction without requiring retraining.
 
-## Dataset
+Workflow
+The training process follows this sequence:
 
-```text
-crime_data_india.csv
-```
+Start Training.
 
-Contains:
+Load the crime dataset.
 
-- State/UT
-- Year
-- Total IPC Crimes
-- Historical Crime Statistics
+Perform data cleaning and preprocessing.
 
----
+Split the data into training and testing sets.
 
-# Output
+Train the LSTM model.
 
-## Trained Model
+Evaluate the model performance.
 
-```text
-saved_models/
-```
+Generate accuracy and loss graphs.
 
-Stores trained LSTM models.
+Save the trained model.
 
-## Accuracy Graph
+Training completed.
 
-```text
-accuracy.png
-```
+Input and Output
+Inputs: The crime_data_india.csv file, which contains state/UT information, years, total IPC crimes, and historical crime statistics.
 
-Displays model accuracy.
+Outputs: Trained LSTM models saved in the saved_models directory, accuracy and loss graphs, and evaluation results including accuracy, loss, and performance metrics.
 
-## Loss Graph
+Common Errors
+Error 1: Dataset Not Found
+The error message is FileNotFoundError. This is because the dataset file path is incorrect. Verify that crime_data_india.csv exists in your data folder.
 
-```text
-loss.png
-```
+Error 2: TensorFlow Not Installed
+The error message is ModuleNotFoundError: No module named 'tensorflow'. The TensorFlow library is missing; install it using the command: pip install tensorflow.
 
-Displays model loss during training.
+Error 3: Insufficient Data
+The error message is ValueError. This occurs when the dataset does not contain enough records for training. Use a larger historical crime dataset.
 
-## Evaluation Results
+Error 4: Model Saving Failed
+The error message is PermissionError. The application cannot write model files to the directory. Verify the save directory permissions.
 
-- Accuracy Score
-- Loss Score
-- Performance Metrics
+Error 5: Memory Error
+The error message is MemoryError. This happens if the large dataset exceeds system memory. Reduce the batch size or use a machine with more RAM.
 
----
+Debugging Guide
+To debug the training process, use these print statements:
 
-# Common Errors
+Use print(Dataset Loaded Successfully) to verify data ingestion.
 
-## Error 1: Dataset Not Found
+Use print(df.shape) to check dataset size.
 
-### Error Message
+Use print(df.isnull().sum()) to check for missing values.
 
-```python
-FileNotFoundError
-```
+Use print(X_train.shape) and print(y_train.shape) to verify the training data dimensions.
 
-### Cause
+Use print(Training Started) and print(Training Completed) to monitor progress.
 
-Dataset file path is incorrect.
+Use print(Model Saved Successfully) to confirm storage.
 
-### Solution
+Advantages and Limitations
+Advantages: Automated training, deep learning-based forecasting, accurate trend prediction, and model reusability.
 
-Verify:
+Limitations: Requires large historical datasets, training can be time-consuming, accuracy is highly dependent on data quality, and the model requires periodic retraining.
 
-```python
-crime_data_india.csv
-```
+Future Enhancements
+Automated retraining pipelines.
 
-exists in the data folder.
+Hyperparameter optimization.
 
----
+Transformer-based forecasting models.
 
-## Error 2: TensorFlow Not Installed
+Cloud-based training and real-time model updates.
 
-### Error Message
-
-```python
-ModuleNotFoundError: No module named 'tensorflow'
-```
-
-### Cause
-
-TensorFlow library is missing.
-
-### Solution
-
-Install TensorFlow:
-
-```bash
-pip install tensorflow
-```
-
----
-
-## Error 3: Insufficient Data
-
-### Error Message
-
-```python
-ValueError
-```
-
-### Cause
-
-Dataset does not contain enough records for training.
-
-### Solution
-
-Use larger historical crime datasets.
-
----
-
-## Error 4: Model Saving Failed
-
-### Error Message
-
-```python
-PermissionError
-```
-
-### Cause
-
-Application cannot write model files.
-
-### Solution
-
-Verify save directory permissions.
-
----
-
-## Error 5: Memory Error
-
-### Error Message
-
-```python
-MemoryError
-```
-
-### Cause
-
-Large dataset exceeds system memory.
-
-### Solution
-
-Reduce batch size or use a machine with more RAM.
-
----
-
-# Debugging Guide
-
-## Verify Dataset Loading
-
-```python
-print("Dataset Loaded Successfully")
-```
-
----
-
-## Check Dataset Shape
-
-```python
-print(df.shape)
-```
-
----
-
-## Check Missing Values
-
-```python
-print(df.isnull().sum())
-```
-
----
-
-## Verify Training Data
-
-```python
-print(X_train.shape)
-print(y_train.shape)
-```
-
----
-
-## Monitor Training Progress
-
-```python
-print("Training Started")
-print("Training Completed")
-```
-
----
-
-## Verify Model Saving
-
-```python
-print("Model Saved Successfully")
-```
-
----
-
-# Performance Metrics
-
-The trained model is evaluated using:
-
-- Accuracy
-- Loss
-- Mean Squared Error (MSE)
-- Root Mean Squared Error (RMSE)
-
-These metrics help determine the effectiveness of the forecasting model.
-
----
-
-# Advantages
-
-- Automated model training.
-- Deep Learning-based forecasting.
-- Accurate crime trend prediction.
-- Reusable trained models.
-- Supports future forecasting.
-
----
-
-# Limitations
-
-- Requires large historical datasets.
-- Training may take time.
-- Accuracy depends on data quality.
-- Requires periodic retraining.
-
----
-
-# Future Enhancements
-
-- Automated retraining pipeline.
-- Hyperparameter optimization.
-- Transformer-based forecasting models.
-- Cloud-based training.
-- Real-time model updates.
-
----
-
-# File Location
-
-```text
-Model Train/
-└── run_training.py
-```
-
-The `run_training.py` module serves as the central training engine of the Crime Rate Prediction System, transforming historical crime data into a trained LSTM forecasting model capable of predicting future crime trends across different regions.
+File Location
+The file is located in the Model Train folder as run_training.py. It serves as the central engine for transforming historical crime data into a functional forecasting model.
