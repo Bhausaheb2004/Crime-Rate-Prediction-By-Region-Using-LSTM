@@ -1,0 +1,250 @@
+# Crime Wise Prediction Module (crime_wise_prediction.py)
+
+## Description
+
+The `crime_wise_prediction.py` module is responsible for analyzing and predicting crime categories individually. Unlike state-wise prediction, this module focuses on specific crime types such as Murder, Theft, Robbery, Kidnapping, Assault, and other IPC crimes.
+
+The module enables users to select a state and crime category, analyze historical trends, generate future predictions, and visualize crime patterns through graphical representations.
+
+---
+
+# Features
+
+## Crime Category Selection
+
+- Select individual crime categories.
+- Analyze crime-specific trends.
+- View historical crime records.
+
+## State Selection
+
+- Select a state or union territory.
+- Generate crime-wise forecasts for the selected state.
+
+## Crime Prediction
+
+- Predict future occurrences of specific crime categories.
+- Display prediction results for upcoming years.
+- Analyze crime growth and decline trends.
+
+## Graph Visualization
+
+- Historical crime trend graphs.
+- Future prediction graphs.
+- Comparative crime charts.
+
+## Data Analysis
+
+- Crime category-wise analysis.
+- Statistical trend evaluation.
+- Pattern identification.
+
+---
+
+# Common Errors
+
+## Error 1: State Not Selected
+
+### Error Message
+
+```text
+Please select a state first
+```
+
+### Reason
+
+The user attempted to generate a prediction without selecting a state.
+
+### Solution
+
+Select a state from the dropdown menu before proceeding.
+
+---
+
+## Error 2: Crime Category Not Selected
+
+### Error Message
+
+```text
+Please select a crime category
+```
+
+### Reason
+
+A crime type was not selected before prediction.
+
+### Solution
+
+Choose a crime category before clicking Predict.
+
+---
+
+## Error 3: Dataset File Not Found
+
+### Error Message
+
+```text
+FileNotFoundError
+```
+
+### Reason
+
+The crime dataset path is incorrect or the file is missing.
+
+### Solution
+
+Verify the dataset location and update the file path.
+
+---
+
+## Error 4: Graph Not Displaying
+
+### Reason
+
+The graph data is empty or invalid.
+
+### Solution
+
+- Verify dataset values.
+- Check graph plotting code.
+- Ensure Matplotlib is installed correctly.
+
+---
+
+## Error 5: Prediction Generation Failed
+
+### Reason
+
+Insufficient data available for the selected crime category.
+
+### Solution
+
+- Verify dataset completeness.
+- Check preprocessing steps.
+- Ensure enough historical records exist.
+
+---
+
+# Debugging Guide
+
+## Check Dataset Loading
+
+```python
+print("Crime Dataset Loaded Successfully")
+```
+
+---
+
+## Check State Selection
+
+```python
+print("Selected State:", state)
+```
+
+---
+
+## Check Crime Category Selection
+
+```python
+print("Selected Crime:", crime_type)
+```
+
+---
+
+## Check Prediction Execution
+
+```python
+print("Crime Prediction Started")
+print("Crime Prediction Completed")
+```
+
+---
+
+## Check Graph Generation
+
+```python
+print("Generating Graph")
+print("Graph Generated Successfully")
+```
+
+---
+
+## Check Output Data
+
+```python
+print(predicted_values)
+```
+
+This helps verify whether the prediction model is generating valid results.
+
+---
+
+# Workflow
+
+```text
+User Opens Crime Wise Prediction
+               |
+               v
+Select State
+               |
+               v
+Select Crime Category
+               |
+               v
+Load Historical Data
+               |
+               v
+Generate Prediction
+               |
+               v
+Display Results
+               |
+               v
+Generate Graph
+               |
+               v
+Show Forecast Output
+```
+
+---
+
+# Advantages
+
+- Crime-specific forecasting.
+- Detailed crime analysis.
+- Easy-to-use graphical interface.
+- Visual trend analysis.
+- Better understanding of crime patterns.
+- Supports decision-making and planning.
+
+---
+
+# Limitations
+
+- Depends on historical dataset quality.
+- Prediction accuracy varies by crime category.
+- Limited real-time data support.
+- Requires periodic model updates.
+
+---
+
+# Future Enhancements
+
+- Real-time crime monitoring.
+- AI-powered crime risk analysis.
+- District-level crime prediction.
+- Crime hotspot detection.
+- GIS-based crime mapping.
+- Web and mobile application integration.
+- Advanced Deep Learning forecasting models.
+
+---
+
+# File Location
+
+```text
+Frontend/
+└── crime_wise_prediction.py
+```
+
+The `crime_wise_prediction.py` module provides crime category analysis, prediction generation, graphical visualization, and forecasting capabilities within the Crime Rate Prediction System.
