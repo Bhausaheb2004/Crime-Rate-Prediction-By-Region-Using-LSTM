@@ -1,342 +1,108 @@
-# Model Training Module (run_training.py / code.py)
+Model Training Module (run_training.py / code.py)
+Description
+The Model Training Module is the core component of the Crime Rate Prediction System. It is responsible for training Machine Learning and Deep Learning models using historical crime data collected from various states and union territories of India. This module processes the dataset, performs data preprocessing, trains the prediction model, evaluates performance, and saves the trained model for future predictions. The primary goal is to generate an accurate forecasting model capable of predicting future crime rates based on historical crime trends.
 
-## Description
+Features
+Dataset Loading
+Loads the crime dataset from a CSV file.
 
-The Model Training Module is the core component of the Crime Rate Prediction System. It is responsible for training Machine Learning and Deep Learning models using historical crime data collected from various states and union territories of India.
+Reads historical crime records and validates input data.
 
-This module processes the dataset, performs data preprocessing, trains the prediction model, evaluates performance, and saves the trained model for future predictions.
-
-The primary goal of this module is to generate an accurate forecasting model capable of predicting future crime rates based on historical crime trends.
-
----
-
-# Features
-
-## Dataset Loading
-
-- Loads crime dataset from CSV file.
-- Reads historical crime records.
-- Validates input data.
-
-## Data Preprocessing
-
-- Handles missing values.
-- Removes duplicate records.
-- Normalizes data.
-- Converts data into time-series format.
-
-## Model Training
-
-- Trains the LSTM model.
-- Learns historical crime patterns.
-- Generates forecasting model.
-
-## Model Evaluation
-
-- Calculates prediction accuracy.
-- Generates loss graphs.
-- Measures model performance.
-
-## Model Saving
-
-- Saves trained models.
-- Stores model weights.
-- Enables future prediction without retraining.
-
----
-
-# Machine Learning Model
-
-## LSTM (Long Short-Term Memory)
-
-The project uses LSTM, a specialized Recurrent Neural Network (RNN) designed for time-series forecasting.
-
-### Advantages
-
-- Captures long-term dependencies.
-- Handles sequential data efficiently.
-- Suitable for crime forecasting.
-- Produces accurate predictions.
-- Learns complex patterns from historical data.
-
----
-
-# Training Workflow
-
-```text
-Crime Dataset
-      |
-      v
-Data Cleaning
-      |
-      v
 Data Preprocessing
-      |
-      v
-Feature Engineering
-      |
-      v
-Train-Test Split
-      |
-      v
-LSTM Model Training
-      |
-      v
+Handles missing values and removes duplicate records.
+
+Normalizes data and converts it into a time-series format.
+
+Model Training
+Trains the LSTM (Long Short-Term Memory) model.
+
+Learns historical crime patterns and generates the forecasting model.
+
 Model Evaluation
-      |
-      v
-Accuracy & Loss Analysis
-      |
-      v
-Save Trained Model
-```
+Calculates prediction accuracy, generates loss graphs, and measures model performance.
 
----
+Model Saving
+Saves trained models and their weights to enable future prediction without retraining.
 
-# Common Errors
+Machine Learning Model: LSTM
+This project utilizes LSTM, a specialized Recurrent Neural Network (RNN) designed for time-series forecasting.
 
-## Error 1: Dataset Not Found
+Advantages
+Captures long-term dependencies.
 
-### Error Message
+Handles sequential data efficiently.
 
-```text
-FileNotFoundError
-```
+Suitable for crime forecasting.
 
-### Reason
+Produces accurate predictions by learning complex patterns from historical data.
 
-The dataset path is incorrect.
+Training Workflow
+The training process follows this sequence:
 
-### Solution
+Load the crime dataset.
 
-Verify the dataset path:
+Clean the data.
 
-```python
-crime_data_india.csv
-```
+Perform data preprocessing.
 
-and ensure the file exists.
+Conduct feature engineering.
 
----
+Split the data into training and testing sets.
 
-## Error 2: TensorFlow Not Installed
+Train the LSTM model.
 
-### Error Message
+Evaluate the model performance.
 
-```text
-ModuleNotFoundError: No module named 'tensorflow'
-```
+Analyze accuracy and loss.
 
-### Reason
+Save the trained model for production use.
 
-TensorFlow package is missing.
+Common Errors
+Error 1: Dataset Not Found
+The error message is FileNotFoundError. This occurs when the dataset path is incorrect. Verify that the crime_data_india.csv file exists in the specified directory.
 
-### Solution
+Error 2: TensorFlow Not Installed
+The error message is ModuleNotFoundError: No module named 'tensorflow'. This means the TensorFlow package is missing. Install it using the command: pip install tensorflow.
 
-Install TensorFlow:
+Error 3: Insufficient Training Data
+The error message is ValueError. This happens if the dataset contains too few records for effective training. Use a larger dataset with more historical data.
 
-```bash
-pip install tensorflow
-```
+Error 4: Model Training Failed
+This is caused by incorrect data preprocessing or invalid input shapes. Verify your dataset columns, check your preprocessing steps, and validate the input dimensions.
 
----
+Error 5: Model Save Failed
+The error message is PermissionError. The application likely cannot write to the model directory. Verify folder permissions and the specified save path.
 
-## Error 3: Insufficient Training Data
+Debugging Guide
+To debug the module, use these print statements:
 
-### Error Message
+Use print(Dataset Loaded Successfully) to verify loading.
 
-```text
-ValueError
-```
+Use print(df.shape) to check dataset dimensions.
 
-### Reason
+Use print(df.isnull().sum()) to identify missing values.
 
-Dataset contains insufficient records for training.
+Use print(X_train.shape) and print(y_train.shape) to verify data structure.
 
-### Solution
+Use print(Model Training Started) and print(Model Training Completed) to track progress.
 
-Use a larger dataset with more historical records.
+Use print(Model Saved Successfully) to confirm file storage.
 
----
-
-## Error 4: Model Training Failed
-
-### Reason
-
-Incorrect data preprocessing or invalid input shape.
-
-### Solution
-
-- Verify dataset columns.
-- Check preprocessing steps.
-- Validate input dimensions.
-
----
-
-## Error 5: Model Save Failed
-
-### Error Message
-
-```text
-PermissionError
-```
-
-### Reason
-
-The application cannot write to the model directory.
-
-### Solution
-
-Verify folder permissions and model save path.
-
----
-
-# Debugging Guide
-
-## Check Dataset Loading
-
-```python
-print("Dataset Loaded Successfully")
-```
-
----
-
-## Check Dataset Shape
-
-```python
-print(df.shape)
-```
-
----
-
-## Check Missing Values
-
-```python
-print(df.isnull().sum())
-```
-
----
-
-## Check Training Data
-
-```python
-print(X_train.shape)
-print(y_train.shape)
-```
-
----
-
-## Check Model Training
-
-```python
-print("Model Training Started")
-print("Model Training Completed")
-```
-
----
-
-## Check Model Saving
-
-```python
-print("Model Saved Successfully")
-```
-
----
-
-# Input
-
-- Historical Crime Dataset
-- State-wise Crime Records
-- Time-Series Crime Data
-
----
-
-# Output
-
-- Trained LSTM Model
-- Accuracy Graph
-- Loss Graph
-- Model Evaluation Metrics
-- Saved Model Files
-
----
-
-# Generated Files
-
-## Saved Models
-
-```text
-saved_models/
-```
-
-Contains trained LSTM models.
-
-## Accuracy Graph
-
-```text
-accuracy.png
-```
-
-Displays model accuracy during training.
-
-## Loss Graph
-
-```text
-loss.png
-```
-
-Displays training loss over epochs.
-
----
-
-# Performance Metrics
-
+Performance Metrics
 The model is evaluated using:
 
-- Accuracy
-- Loss
-- Mean Squared Error (MSE)
-- Root Mean Squared Error (RMSE)
+Accuracy
 
-These metrics help determine prediction quality and model performance.
+Loss
 
----
+Mean Squared Error (MSE)
 
-# Advantages
+Root Mean Squared Error (RMSE)
 
-- Automated model training.
-- Accurate crime forecasting.
-- Deep Learning-based prediction.
-- Reusable trained models.
-- Supports future forecasting.
+Input and Output
+Inputs: Historical crime datasets, state-wise crime records, and time-series data.
 
----
+Outputs: A trained LSTM model, accuracy and loss graphs, evaluation metrics, and saved model files.
 
-# Limitations
-
-- Requires sufficient historical data.
-- Training can be time-consuming.
-- Performance depends on dataset quality.
-- Requires periodic retraining.
-
----
-
-# Future Enhancements
-
-- Hybrid ML-DL models.
-- Transformer-based forecasting.
-- Automated hyperparameter tuning.
-- Real-time model retraining.
-- Cloud-based training infrastructure.
-
----
-
-# File Location
-
-```text
-Model Train/
-├── code.py
-└── run_training.py
-```
-
-The Model Training Module is responsible for transforming historical crime data into an intelligent forecasting model capable of predicting future crime trends and supporting crime analysis within the Crime Rate Prediction System.
+File Location
+The files are located in the Model Train folder as code.py and run_training.py. The module transforms historical crime data into an intelligent forecasting system.
