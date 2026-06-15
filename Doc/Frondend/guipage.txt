@@ -1,203 +1,72 @@
-# GUI Module (guipage.py)
+GUI Module (guipage.py)
+Description
+The guipage.py file serves as the main dashboard of the Crime Rate Prediction System. It provides a graphical user interface that allows users to interact with the application, select states, generate crime predictions, view historical crime trends, and visualize prediction results through graphs.
 
-## Description
+Features
+Crime Prediction Dashboard
+Interactive GUI built using Tkinter.
 
-The `guipage.py` file serves as the main dashboard of the Crime Rate Prediction System. It provides a graphical user interface that allows users to interact with the application, select states, generate crime predictions, view historical crime trends, and visualize prediction results through graphs.
+User-friendly interface.
 
----
+State selection using a dropdown menu.
 
-## Features
+Crime trend visualization.
 
-### Crime Prediction Dashboard
-- Interactive GUI built using Tkinter.
-- User-friendly interface.
-- State selection using dropdown menu.
-- Crime trend visualization.
+State Selection
+Displays all available states from the dataset.
 
-### State Selection
-- Displays all available states from the dataset.
-- Allows users to choose a state for analysis.
+Allows users to choose a state for analysis.
 
-### Crime Prediction
-- Generates future crime predictions.
-- Displays historical and predicted crime data.
-- Stores prediction results in the database.
+Crime Prediction
+Generates future crime predictions.
 
-### Graph Visualization
-- Shows historical crime trends.
-- Displays future prediction trends.
-- Uses Matplotlib for chart generation.
+Displays historical and predicted crime data.
 
-### Navigation
-- Opens Crime Wise Prediction module.
-- Provides Exit functionality.
+Stores prediction results in the database.
 
----
+Graph Visualization
+Shows historical crime trends.
 
-## Common Errors
+Displays future prediction trends.
 
-### Error 1: State Not Selected
+Uses Matplotlib for chart generation.
 
-**Message**
+Navigation
+Opens Crime Wise Prediction module.
 
-```text
-Select a state
-```
+Provides Exit functionality.
 
-**Reason**
+Common Errors
+Error 1: State Not Selected
+The error message is Select a state. This happens when the user clicks Predict without selecting a state. Solve this by selecting a state from the dropdown list before clicking Predict.
 
-User clicked Predict without selecting a state.
+Error 2: Dataset File Not Found
+The error message is FileNotFoundError. This occurs because the crime dataset path is incorrect. Verify the DATA_PATH variable and ensure the CSV file exists in the correct directory.
 
-**Solution**
+Error 3: State Wise Module Not Opening
+The error message is AttributeError: 'CrimePredictionApp' object has no attribute 'open_state_wise'. This happens when a button calls a function that does not exist. Solve this by defining the method inside the class and ensuring the command attribute is linked correctly.
 
-Select a state from the dropdown list before clicking Predict.
+Error 4: Database Connection Error
+This occurs if the system is unable to connect to the MySQL database. Verify your database credentials, ensure the MySQL service is running, and check your table creation scripts.
 
----
+Error 5: Graph Not Displaying
+This happens if the Matplotlib data is missing or invalid. Verify dataset contents, check the graph generation code, and ensure that Matplotlib is installed properly.
 
-### Error 2: Dataset File Not Found
+Debugging Guide
+To debug guipage.py, use the following checks:
 
-**Message**
+Use print(Dataset Loaded Successfully) to verify data loading.
 
-```text
-FileNotFoundError
-```
+Use print(Selected State: state) to verify the current selection.
 
-**Reason**
+Use print(Prediction Started) and print(Prediction Completed) to track the prediction process.
 
-The crime dataset path is incorrect.
+Use print(State Wise Prediction Button Clicked) to check button functionality.
 
-**Solution**
+Use print(Prediction Saved Successfully) to verify database operations.
 
-Verify the DATA_PATH variable and ensure the CSV file exists.
+GUI Workflow
+The user opens the dashboard and selects a state. Upon clicking Predict, the system loads historical data, generates a future prediction, displays the results, and shows the corresponding graph.
 
----
-
-### Error 3: State Wise Module Not Opening
-
-**Message**
-
-```text
-AttributeError: 'CrimePredictionApp' object has no attribute 'open_state_wise'
-```
-
-**Reason**
-
-The button is calling a function that does not exist.
-
-**Solution**
-
-Define the method inside the class:
-
-```python
-def open_state_wise(self):
-    pass
-```
-
-and use:
-
-```python
-command=self.open_state_wise
-```
-
----
-
-### Error 4: Database Connection Error
-
-**Reason**
-
-Unable to connect to MySQL database.
-
-**Solution**
-
-- Verify database credentials.
-- Ensure MySQL service is running.
-- Check table creation scripts.
-
----
-
-### Error 5: Graph Not Displaying
-
-**Reason**
-
-Matplotlib data is missing or invalid.
-
-**Solution**
-
-- Verify dataset contents.
-- Check graph generation code.
-- Ensure Matplotlib is installed.
-
----
-
-## Debugging Guide
-
-When debugging `guipage.py`:
-
-### Check Dataset Loading
-
-```python
-print("Dataset Loaded Successfully")
-```
-
-### Check Selected State
-
-```python
-print("Selected State:", state)
-```
-
-### Check Prediction Execution
-
-```python
-print("Prediction Started")
-print("Prediction Completed")
-```
-
-### Check Button Click Event
-
-```python
-def open_state_wise(self):
-    print("State Wise Prediction Button Clicked")
-```
-
-### Check Database Save
-
-```python
-print("Prediction Saved Successfully")
-```
-
----
-
-## GUI Workflow
-
-```text
-User Opens Dashboard
-         |
-         v
-Select State
-         |
-         v
-Click Predict
-         |
-         v
-Load Historical Data
-         |
-         v
-Generate Future Prediction
-         |
-         v
-Display Results
-         |
-         v
-Show Graph
-```
-
----
-
-## File Location
-
-```text
-Frontend/
-└── guipage.py
-```
-
-The GUI module acts as the central interface connecting dataset analysis, prediction generation, graph visualization, and navigation to other project modules.
+File Location
+The file is located in the Frontend folder as guipage.py. The GUI module acts as the central interface connecting dataset analysis, prediction generation, graph visualization, and navigation to other project modules.
