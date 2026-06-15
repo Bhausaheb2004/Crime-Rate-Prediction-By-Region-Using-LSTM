@@ -3,5 +3,5 @@
 |       Name         | Role              |
 |--------------------|-------------------|
 | Bhausaheb Markande | Project Developer |
-| Tanmay Garje | Testing           |
-| Bhausaheb Markande | Documentation     |
+| Bhausaheb Markande & Tanmay Garje & Jaydip Gadekar| Testing           |
+| Bhausaheb Markande & Tanmay Garje & Jaydip Gadekar | Documentation     |
