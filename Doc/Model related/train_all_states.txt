@@ -1,0 +1,309 @@
+# State-Wise LSTM Model Training
+
+## Overview
+
+The Crime Rate Prediction System uses Long Short-Term Memory (LSTM) neural networks to train separate forecasting models for each state and union territory of India.
+
+Instead of training a single model for the entire dataset, the system trains individual models for every state to improve prediction accuracy and capture state-specific crime patterns.
+
+---
+
+# Common Errors and Debugging
+
+## Error 1: Dataset File Not Found
+
+### Error Message
+
+```python
+FileNotFoundError: crime_data_india.csv
+```
+
+### Cause
+
+Dataset path is incorrect or file is missing.
+
+### Debugging
+
+```python
+print(DATA_PATH)
+```
+
+Verify that:
+
+```text
+data/crime_data_india.csv
+```
+
+exists in the project folder.
+
+---
+
+## Error 2: State Data Not Found
+
+### Error Message
+
+```python
+KeyError: STATE/UT
+```
+
+### Cause
+
+Column name does not exist in dataset.
+
+### Debugging
+
+```python
+print(df.columns)
+```
+
+Verify the dataset contains:
+
+```text
+STATE/UT
+YEAR
+TOTAL IPC CRIMES
+```
+
+---
+
+## Error 3: Empty State Dataset
+
+### Error Message
+
+```python
+ValueError: Found array with 0 sample(s)
+```
+
+### Cause
+
+Selected state contains no records.
+
+### Debugging
+
+```python
+print(state_data.shape)
+print(state_name)
+```
+
+Verify state data exists before training.
+
+---
+
+## Error 4: TensorFlow Not Installed
+
+### Error Message
+
+```python
+ModuleNotFoundError: No module named 'tensorflow'
+```
+
+### Debugging
+
+```bash
+pip install tensorflow
+```
+
+Verify installation:
+
+```python
+import tensorflow as tf
+print(tf.__version__)
+```
+
+---
+
+## Error 5: LSTM Input Shape Error
+
+### Error Message
+
+```python
+ValueError: Input shape is incompatible
+```
+
+### Cause
+
+Incorrect training data dimensions.
+
+### Debugging
+
+```python
+print(X_train.shape)
+print(y_train.shape)
+```
+
+Expected:
+
+```text
+(samples, timesteps, features)
+```
+
+Example:
+
+```text
+(500, 10, 1)
+```
+
+---
+
+## Error 6: Model Training Failed
+
+### Error Message
+
+```python
+ValueError during model.fit()
+```
+
+### Debugging
+
+```python
+print(X_train.shape)
+print(y_train.shape)
+print(X_test.shape)
+print(y_test.shape)
+```
+
+Verify training and testing datasets are not empty.
+
+---
+
+## Error 7: Model Save Failed
+
+### Error Message
+
+```python
+PermissionError
+```
+
+### Cause
+
+No write permission.
+
+### Debugging
+
+```python
+print(model_path)
+```
+
+Verify:
+
+```text
+saved_models/
+```
+
+folder exists.
+
+---
+
+## Error 8: Memory Error
+
+### Error Message
+
+```python
+MemoryError
+```
+
+### Cause
+
+Dataset too large.
+
+### Debugging
+
+Reduce:
+
+```python
+batch_size
+epochs
+sequence_length
+```
+
+Or train states individually.
+
+---
+
+## Error 9: NaN Values Found
+
+### Error Message
+
+```python
+ValueError: Input contains NaN
+```
+
+### Debugging
+
+```python
+print(df.isnull().sum())
+```
+
+Remove missing values:
+
+```python
+df = df.dropna()
+```
+
+---
+
+## Error 10: Prediction Gives Wrong Values
+
+### Cause
+
+Improper scaling or inverse transformation.
+
+### Debugging
+
+```python
+print(predictions)
+print(actual_values)
+```
+
+Verify Min-Max Scaler is applied correctly.
+
+---
+
+# Training Debug Logs
+
+Add these logs inside run_training.py
+
+```python
+print("Dataset Loaded Successfully")
+print("State Training Started:", state)
+print("Data Preprocessing Completed")
+print("Model Training Started")
+print("Model Training Completed")
+print("Model Saved Successfully")
+```
+
+---
+
+# Training Verification
+
+After training all states:
+
+```python
+print("Total States Trained:", len(models))
+```
+
+Expected Output:
+
+```text
+Total States Trained: 36
+```
+
+(depending on dataset)
+
+---
+
+# Success Criteria
+
+The training process is considered successful when:
+
+✓ Dataset loads correctly
+
+✓ All states are processed
+
+✓ LSTM model trains without errors
+
+✓ Accuracy and Loss graphs are generated
+
+✓ State-wise models are saved
+
+✓ Evaluation metrics are calculated
