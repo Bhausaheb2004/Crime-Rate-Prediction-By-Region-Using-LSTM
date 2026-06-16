@@ -152,8 +152,3 @@ The predicted value differs from the actual value by about 2.81 units on average
 Conclusion
 
 The proposed LSTM-based Crime Rate Prediction System achieved an overall accuracy of 93.5%. The model successfully learns historical crime patterns and predicts future crime trends with low error, making it suitable for State-Wise Prediction, Crime-Wise Prediction, and Safety Analysis.
-
-
-Conclusion
-
-The proposed LSTM-based Crime Rate Prediction System achieved an overall accuracy of 93.5%. The model successfully learns historical crime patterns and predicts future crime trends with low error, making it suitable for State-Wise Prediction, Crime-Wise Prediction, and Safety Analysis.
