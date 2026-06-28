@@ -1,0 +1,11 @@
+# Crime Rate Prediction Project
+# Python 3.8.x
+
+Pillow==10.0.0
+joblib==1.3.2
+matplotlib==3.7.2
+mysql-connector-python==8.1.0
+numpy==1.24.3
+pandas==2.0.3
+scikit-learn==1.3.0
+tensorflow==2.13.0
