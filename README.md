@@ -3,8 +3,8 @@
 |       Name         | Role              |
 |--------------------|-------------------|
 | Bhausaheb Markande | Project Developer |
-| Bhausaheb Markande & Tanmay Garje & Jaydip Gadekar| Testing           |
-| Bhausaheb Markande & Tanmay Garje & Jaydip Gadekar | Documentation     |
+| Bhausaheb Markande | Testing           |
+| Bhausaheb Markande | Documentation     |
 
 # 🚔 Crime Rate Prediction Using Machine Learning and Deep Learning
 
